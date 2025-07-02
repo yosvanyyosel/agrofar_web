@@ -1,0 +1,890 @@
+<html lang="es"><head></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+<body class="min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-64 bg-white shadow-lg fixed inset-y-0 left-0 z-20 transform -translate-x-full md:translate-x-0">
+            <div class="h-full flex flex-col">
+                <!-- Logo -->
+                <div class="gradient-bg p-4 flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <h1 class="text-xl font-bold text-white">FielControl</h1>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="flex-1 overflow-y-auto py-4">
+                    <ul class="space-y-1 px-3">
+                        <li>
+                            <a href="#dashboard" class="sidebar-link active flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                                </svg>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#miembros" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                Miembros
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#familias" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                </svg>
+                                Familias
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#ministerios" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                                </svg>
+                                Ministerios
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#eventos" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Eventos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#finanzas" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Finanzas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#configuracion" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                Configuración
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- User Profile -->
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                            AS
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">Admin</p>
+                            <p class="text-xs text-gray-500">admin@saetadesalvacion.org</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col md:ml-64">
+            <!-- Header -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex justify-between items-center px-4 py-3">
+                    <div class="flex items-center space-x-3">
+                        <button id="sidebarToggle" class="md:hidden text-gray-600 hover:text-gray-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                        <h1 class="text-xl font-semibold text-gray-800">Dashboard</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </span>
+                            <input type="text" placeholder="Buscar..." class="py-2 pl-10 pr-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="relative">
+                            <button class="text-gray-600 hover:text-gray-900 relative">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                                </svg>
+                                <span class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
+                <div class="max-w-7xl mx-auto">
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="card p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">Total Miembros</p>
+                                    <h3 class="text-3xl font-bold text-gray-800" id="totalMembers">120</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-500 text-sm font-medium flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    5% desde el mes pasado
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">Miembros Activos</p>
+                                    <h3 class="text-3xl font-bold text-gray-800" id="activeMembers">85</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-500 text-sm font-medium flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    3% desde el mes pasado
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">Familias</p>
+                                    <h3 class="text-3xl font-bold text-gray-800" id="totalFamilies">8</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-500 text-sm font-medium flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    2 nuevas familias
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">Eventos Próximos</p>
+                                    <h3 class="text-3xl font-bold text-gray-800" id="upcomingEvents">5</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-purple-500 text-sm font-medium flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Próximo en 2 días
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <div class="card p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Distribución por Estado</h3>
+                            <div class="h-64">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Distribución por Edad</h3>
+                            <div class="h-64">
+                                <canvas id="ageChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Miembros por Ministerio</h3>
+                            <div class="h-64">
+                                <canvas id="ministryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events Section -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800">Próximos Eventos</h2>
+                            <button id="addEventBtn" class="gradient-bg text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:opacity-90 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                <span>Agregar Evento</span>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsContainer">
+                            <!-- Events will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Members Table -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800">Miembros Recientes</h2>
+                            <div class="flex space-x-2">
+                                <button id="addMemberBtn" class="gradient-bg text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:opacity-90 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    <span>Agregar Miembro</span>
+                                </button>
+                                <a href="#miembros" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                    Ver todos
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="rounded-tl-lg">Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Edad</th>
+                                            <th>Teléfono</th>
+                                            <th>Email</th>
+                                            <th>Familia</th>
+                                            <th>Ministerio</th>
+                                            <th>Estado</th>
+                                            <th class="rounded-tr-lg">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentMembersTable">
+                                        <!-- Members will be loaded dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Families and Ministries Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- Families Section -->
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold text-gray-800">Familias</h2>
+                                <button id="addFamilyBtn" class="gradient-bg text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:opacity-90 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    <span>Agregar Familia</span>
+                                </button>
+                            </div>
+                            <div class="card p-4">
+                                <div class="space-y-4" id="familiesContainer">
+                                    <!-- Families will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ministries Section -->
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold text-gray-800">Ministerios</h2>
+                                <button id="addMinistryBtn" class="gradient-bg text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:opacity-90 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    <span>Agregar Ministerio</span>
+                                </button>
+                            </div>
+                            <div class="card p-4">
+                                <div class="space-y-4" id="ministriesContainer">
+                                    <!-- Ministries will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content md:w-[600px]">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Agregar Nuevo Miembro</h3>
+                    <button class="closeModal text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="addMemberForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="edad" class="form-label">Edad</label>
+                            <input type="number" id="edad" name="edad" class="form-input" min="1" max="120" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" id="direccion" name="direccion" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="familia" class="form-label">Familia</label>
+                            <select id="familia" name="familia" class="form-select" required="">
+                                <option value="">Seleccionar Familia</option>
+                                <!-- Options will be loaded dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ministerio" class="form-label">Ministerio</label>
+                            <select id="ministerio" name="ministerio" class="form-select" required="">
+                                <option value="">Seleccionar Ministerio</option>
+                                <!-- Options will be loaded dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select id="estado" name="estado" class="form-select" required="">
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                                <option value="nuevo">Nuevo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" class="btn btn-secondary closeModal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Family Modal -->
+    <div id="addFamilyModal" class="modal">
+        <div class="modal-content md:w-[500px]">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Agregar Nueva Familia</h3>
+                    <button class="closeModal text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="addFamilyForm">
+                    <div class="form-group">
+                        <label for="familyName" class="form-label">Nombre de la Familia</label>
+                        <input type="text" id="familyName" name="familyName" class="form-input" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="familyAddress" class="form-label">Dirección</label>
+                        <input type="text" id="familyAddress" name="familyAddress" class="form-input" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="familyPhone" class="form-label">Teléfono Principal</label>
+                        <input type="tel" id="familyPhone" name="familyPhone" class="form-input" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="familyNotes" class="form-label">Notas</label>
+                        <textarea id="familyNotes" name="familyNotes" class="form-input" rows="3"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" class="btn btn-secondary closeModal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Ministry Modal -->
+    <div id="addMinistryModal" class="modal">
+        <div class="modal-content md:w-[500px]">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Agregar Nuevo Ministerio</h3>
+                    <button class="closeModal text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="addMinistryForm">
+                    <div class="form-group">
+                        <label for="ministryName" class="form-label">Nombre del Ministerio</label>
+                        <input type="text" id="ministryName" name="ministryName" class="form-input" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="ministryDescription" class="form-label">Descripción</label>
+                        <textarea id="ministryDescription" name="ministryDescription" class="form-input" rows="3" required=""></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ministryLeader" class="form-label">Líder</label>
+                        <select id="ministryLeader" name="ministryLeader" class="form-select" required="">
+                            <option value="">Seleccionar Líder</option>
+                            <!-- Options will be loaded dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ministryMeetingDay" class="form-label">Día de Reunión</label>
+                        <select id="ministryMeetingDay" name="ministryMeetingDay" class="form-select" required="">
+                            <option value="">Seleccionar Día</option>
+                            <option value="Lunes">Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miércoles">Miércoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" class="btn btn-secondary closeModal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div id="addEventModal" class="modal">
+        <div class="modal-content md:w-[600px]">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Agregar Nuevo Evento</h3>
+                    <button class="closeModal text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="addEventForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group md:col-span-2">
+                            <label for="eventTitle" class="form-label">Título del Evento</label>
+                            <input type="text" id="eventTitle" name="eventTitle" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDate" class="form-label">Fecha</label>
+                            <input type="date" id="eventDate" name="eventDate" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventMinistry" class="form-label">Ministerio Responsable</label>
+                            <select id="eventMinistry" name="eventMinistry" class="form-select">
+                                <option value="">Seleccionar Ministerio</option>
+                                <!-- Options will be loaded dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventStartTime" class="form-label">Hora de Inicio</label>
+                            <input type="time" id="eventStartTime" name="eventStartTime" class="form-input" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventEndTime" class="form-label">Hora de Finalización</label>
+                            <input type="time" id="eventEndTime" name="eventEndTime" class="form-input" required="">
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label for="eventLocation" class="form-label">Ubicación</label>
+                            <input type="text" id="eventLocation" name="eventLocation" class="form-input" required="">
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label for="eventDescription" class="form-label">Descripción</label>
+                            <textarea id="eventDescription" name="eventDescription" class="form-input" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" class="btn btn-secondary closeModal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Datos de ejemplo para miembros
+        let members = [
+            { id: 1, nombre: "Juan", apellido: "Pérez", edad: 45, telefono: "555-1234", email: "juan@example.com", direccion: "Calle Principal 123", familia: "Pérez", ministerio: "Alabanza", estado: "activo" },
+            { id: 2, nombre: "María", apellido: "González", edad: 38, telefono: "555-5678", email: "maria@example.com", direccion: "Av. Central 456", familia: "González", ministerio: "Damas", estado: "activo" },
+            { id: 3, nombre: "Carlos", apellido: "Rodríguez", edad: 52, telefono: "555-9012", email: "carlos@example.com", direccion: "Plaza Mayor 789", familia: "Rodríguez", ministerio: "Caballeros", estado: "inactivo" },
+            { id: 4, nombre: "Ana", apellido: "Martínez", edad: 29, telefono: "555-3456", email: "ana@example.com", direccion: "Calle Norte 234", familia: "Martínez", ministerio: "Jóvenes", estado: "nuevo" },
+            { id: 5, nombre: "Luis", apellido: "Sánchez", edad: 41, telefono: "555-7890", email: "luis@example.com", direccion: "Av. Sur 567", familia: "Sánchez", ministerio: "Evangelismo", estado: "activo" },
+            { id: 6, nombre: "Elena", apellido: "López", edad: 33, telefono: "555-2345", email: "elena@example.com", direccion: "Calle Este 890", familia: "López", ministerio: "Alabanza", estado: "activo" },
+            { id: 7, nombre: "Pedro", apellido: "Díaz", edad: 47, telefono: "555-6789", email: "pedro@example.com", direccion: "Av. Oeste 123", familia: "Díaz", ministerio: "Caballeros", estado: "inactivo" },
+            { id: 8, nombre: "Laura", apellido: "Torres", edad: 25, telefono: "555-0123", email: "laura@example.com", direccion: "Plaza Central 456", familia: "Torres", ministerio: "Jóvenes", estado: "nuevo" },
+            { id: 9, nombre: "Miguel", apellido: "Pérez", edad: 39, telefono: "555-4567", email: "miguel@example.com", direccion: "Calle Mayor 789", familia: "Pérez", ministerio: "Evangelismo", estado: "activo" },
+            { id: 10, nombre: "Sofía", apellido: "González", edad: 31, telefono: "555-8901", email: "sofia@example.com", direccion: "Av. Principal 234", familia: "González", ministerio: "Damas", estado: "activo" },
+            { id: 11, nombre: "Javier", apellido: "Rodríguez", edad: 50, telefono: "555-2345", email: "javier@example.com", direccion: "Calle Central 567", familia: "Rodríguez", ministerio: "Caballeros", estado: "inactivo" },
+            { id: 12, nombre: "Carmen", apellido: "Martínez", edad: 27, telefono: "555-6789", email: "carmen@example.com", direccion: "Av. Norte 890", familia: "Martínez", ministerio: "Niños", estado: "nuevo" }
+        ];
+    
+        // Datos de ejemplo para eventos
+        let events = [
+            { 
+                id: 1, 
+                title: "Culto de Adoración", 
+                date: "2023-05-15", 
+                startTime: "10:00", 
+                endTime: "12:00", 
+                location: "Templo Principal", 
+                status: "today",
+                description: "Culto dominical de adoración",
+                ministry: "Alabanza",
+                attendees: [
+                    { initials: "JP", color: "blue" },
+                    { initials: "MG", color: "green" },
+                    { initials: "CR", color: "purple" },
+                    { more: 5 }
+                ]
+            },
+            { 
+                id: 2, 
+                title: "Reunión de Jóvenes", 
+                date: "2023-05-17", 
+                startTime: "19:00", 
+                endTime: "21:00", 
+                location: "Salón Juvenil", 
+                status: "upcoming",
+                description: "Reunión semanal de jóvenes",
+                ministry: "Jóvenes",
+                attendees: [
+                    { initials: "AM", color: "yellow" },
+                    { initials: "LT", color: "red" },
+                    { more: 12 }
+                ]
+            },
+            { 
+                id: 3, 
+                title: "Estudio Bíblico", 
+                date: "2023-05-19", 
+                startTime: "19:30", 
+                endTime: "21:00", 
+                location: "Salón de Estudios", 
+                status: "upcoming",
+                description: "Estudio bíblico semanal",
+                ministry: "Evangelismo",
+                attendees: [
+                    { initials: "LS", color: "blue" },
+                    { initials: "PD", color: "indigo" },
+                    { more: 8 }
+                ]
+            },
+            { 
+                id: 4, 
+                title: "Reunión de Damas", 
+                date: "2023-05-20", 
+                startTime: "16:00", 
+                endTime: "18:00", 
+                location: "Salón Multiusos", 
+                status: "upcoming",
+                description: "Reunión mensual del ministerio de damas",
+                ministry: "Damas",
+                attendees: [
+                    { initials: "MG", color: "pink" },
+                    { initials: "SG", color: "purple" },
+                    { more: 15 }
+                ]
+            },
+            { 
+                id: 5, 
+                title: "Ensayo del Coro", 
+                date: "2023-05-21", 
+                startTime: "15:00", 
+                endTime: "17:00", 
+                location: "Sala de Música", 
+                status: "upcoming",
+                description: "Ensayo semanal del coro",
+                ministry: "Alabanza",
+                attendees: [
+                    { initials: "JP", color: "blue" },
+                    { initials: "EL", color: "green" },
+                    { more: 10 }
+                ]
+            }
+        ];
+    
+        // Datos de ejemplo para familias
+        let families = [
+            { id: 1, name: "Pérez", address: "Calle Principal 123", phone: "555-1234", members: 2, notes: "Familia fundadora de la iglesia" },
+            { id: 2, name: "González", address: "Av. Central 456", phone: "555-5678", members: 2, notes: "Familia activa en ministerios" },
+            { id: 3, name: "Rodríguez", address: "Plaza Mayor 789", phone: "555-9012", members: 2, notes: "Familia con necesidades especiales" },
+            { id: 4, name: "Martínez", address: "Calle Norte 234", phone: "555-3456", members: 2, notes: "Familia nueva en la iglesia" },
+            { id: 5, name: "Sánchez", address: "Av. Sur 567", phone: "555-7890", members: 1, notes: "Familia comprometida con evangelismo" },
+            { id: 6, name: "López", address: "Calle Este 890", phone: "555-2345", members: 1, notes: "Familia activa en alabanza" },
+            { id: 7, name: "Díaz", address: "Av. Oeste 123", phone: "555-6789", members: 1, notes: "Familia con necesidades de oración" },
+            { id: 8, name: "Torres", address: "Plaza Central 456", phone: "555-0123", members: 1, notes: "Familia nueva con jóvenes" }
+        ];
+    
+        // Datos de ejemplo para ministerios
+        let ministries = [
+            { id: 1, name: "Alabanza", description: "Ministerio de música y adoración", leader: "Juan Pérez", meetingDay: "Sábado", members: 15 },
+            { id: 2, name: "Jóvenes", description: "Ministerio para jóvenes de 15 a 30 años", leader: "Ana Martínez", meetingDay: "Martes", members: 25 },
+            { id: 3, name: "Niños", description: "Ministerio para niños de 3 a 12 años", leader: "Carmen Martínez", meetingDay: "Domingo", members: 20 },
+            { id: 4, name: "Damas", description: "Ministerio para mujeres", leader: "María González", meetingDay: "Jueves", members: 18 },
+            { id: 5, name: "Caballeros", description: "Ministerio para hombres", leader: "Carlos Rodríguez", meetingDay: "Viernes", members: 12 },
+            { id: 6, name: "Evangelismo", description: "Ministerio de alcance y evangelización", leader: "Luis Sánchez", meetingDay: "Miércoles", members: 10 }
+        ];
+    
+        // Inicialización de variables para gráficas (si las usas)
+        let statusChart, ageChart, ministryChart;
+    
+        // Elementos del DOM
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const addMemberBtn = document.getElementById('addMemberBtn');
+        const addFamilyBtn = document.getElementById('addFamilyBtn');
+        const addMinistryBtn = document.getElementById('addMinistryBtn');
+        const addEventBtn = document.getElementById('addEventBtn');
+        const closeModalBtns = document.querySelectorAll('.closeModal');
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notificationMessage');
+    
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMembers();
+            loadEvents();
+            loadFamilies();
+            loadMinistries();
+            populateFormSelects();
+            // Si tienes funciones para gráficas, descomenta la siguiente línea
+            // initCharts();
+            setupEventListeners();
+        });
+    
+        // Listeners de eventos
+        function setupEventListeners() {
+            // Toggle sidebar para móvil
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+    
+            // Cerrar sidebar al hacer click fuera en móvil
+            document.addEventListener('click', function(event) {
+                const isClickInsideSidebar = sidebar.contains(event.target);
+                const isClickOnToggle = sidebarToggle.contains(event.target);
+                if (!isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+    
+            // Navegación del sidebar
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+    
+            // Botones para abrir modales
+            addMemberBtn.addEventListener('click', function() {
+                document.getElementById('addMemberModal').style.display = 'block';
+            });
+            addFamilyBtn.addEventListener('click', function() {
+                document.getElementById('addFamilyModal').style.display = 'block';
+            });
+            addMinistryBtn.addEventListener('click', function() {
+                document.getElementById('addMinistryModal').style.display = 'block';
+            });
+            addEventBtn.addEventListener('click', function() {
+                document.getElementById('addEventModal').style.display = 'block';
+            });
+    
+            // Botones para cerrar modales
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) modal.style.display = 'none';
+                });
+            });
+    
+            // Cerrar modal al hacer click fuera
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+    
+            // Submisión de formularios
+            document.getElementById('addMemberForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addMember();
+            });
+            document.getElementById('addFamilyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addFamily();
+            });
+            document.getElementById('addMinistryForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addMinistry();
+            });
+            document.getElementById('addEventForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addEvent();
+            });
+        }
+    
+        // Función para cargar miembros en la tabla
+        function loadMembers() {
+            const recentMembersTable = document.getElementById('recentMembersTable');
+            recentMembersTable.innerHTML = '';
+    
+            // Ordenar por ID descendente (más recientes)
+            const recentMembers = [...members].sort((a, b) => b.id - a.id).slice(0, 5);
+    
+            recentMembers.forEach(member => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.nombre}</td>
+                    <td>${member.apellido}</td>
+                    <td>${member.edad}</td>
+                    <td>${member.telefono}</td>
+                    <td>${member.email}</td>
+                    <td>${member.familia}</td>
+                    <td>${member.ministerio}</td>
+                    <td>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium status-${member.estado}">
+                            ${capitalizeFirstLetter(member.estado)}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="flex space-x-2">
+                            <button class="text-blue-600 hover:text-blue-800" onclick="editMember(${member.id})">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </button>
+                            <button class="text-red-600 hover:text-red-800" onclick="deleteMember(${member.id})">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                recentMembersTable.appendChild(row);
+            });
+    
+            // Actualizar estadísticas
+            document.getElementById('totalMembers').textContent = members.length;
+            document.getElementById('activeMembers').textContent = members.filter(m => m.estado === 'activo').length;
+        }
+    
+        // Función para cargar eventos
+        function loadEvents() {
+            const eventsContainer = document.getElementById('eventsContainer');
+            eventsContainer.innerHTML = '';
+    
+            // Ordenar por fecha (más próximos primero)
+            const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 3);
+    
+            sortedEvents.forEach(event => {
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                card.innerHTML = `
+                    <h3>${event.title}</h3>
+                    <p>${event.date} ${event.startTime} - ${event.endTime}</p>
+                    <p>${event.location}</p>
+                    <p>${event.description}</p>
+                `;
+                eventsContainer.appendChild(card);
+            });
+        }
+    
+        // Función para cargar familias (implementa según tu HTML)
+        function loadFamilies() {
+            // Implementa según tu estructura de tabla o lista de familias
+        }
+    
+        // Función para cargar ministerios (implementa según tu HTML)
+        function loadMinistries() {
+            // Implementa según tu estructura de tabla o lista de ministerios
+        }
+    
+        // Función para poblar selects de formularios (implementa según tus selects)
+        function populateFormSelects() {
+            // Ejemplo: poblar un select de familias
+            // const familySelect = document.getElementById('familySelect');
+            // familySelect.innerHTML = families.map(f => `<option value="${f.name}">${f.name}</option>`).join('');
+        }
+    
+        // Función auxiliar para capitalizar la primera letra
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    
+        // Funciones addMember, addFamily, addMinistry, addEvent, editMember, deleteMember, etc.
+        // Debes implementarlas según la lógica de tu aplicación
+    
+    </script>
+    

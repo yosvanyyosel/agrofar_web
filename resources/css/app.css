@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #0F4C81 0%, #2B5876 100%);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #0F4C81 0%, #2B5876 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(15, 76, 129, 0.15);
+}
+
+.blog-card:hover .blog-overlay {
+    opacity: 1;
+}
+
+.blog-card:hover img {
+    transform: scale(1.05);
+}
+
+.skill-icon {
+    transition: all 0.3s ease;
+}
+
+.skill-icon:hover {
+    transform: scale(1.1);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(135deg, #0F4C81 0%, #2B5876 100%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.app-card {
+    transition: all 0.3s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(15, 76, 129, 0.2);
+}
+
+.app-card:hover .download-btn {
+    background: #0F4C81;
+    color: white;
+}
+
+.app-card:hover .buy-btn {
+    background: #0F4C81;
+    color: white;
+}
+
+.blog-card {
+    overflow: hidden;
+}
+
+.blog-card img {
+    transition: transform 0.5s ease;
+}
+
+.blog-overlay {
+    background: rgba(15, 76, 129, 0.7);
+    transition: opacity 0.3s ease;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.3);
+}
+
+.category-filter {
+    transition: all 0.3s ease;
+}
+
+.category-filter:hover, .category-filter.active {
+    background: linear-gradient(135deg, #0F4C81 0%, #2B5876 100%);
+    color: white;
+}
+
+.contact-btn {
+    transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+    transform: scale(1.1);
+}
+
+.progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: #e2e8f0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #0F4C81 0%, #2B5876 100%);
+    transition: width 1s ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
