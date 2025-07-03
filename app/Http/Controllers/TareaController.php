@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Tarea;
@@ -9,12 +8,19 @@ class TareaController extends Controller
 {
     public function index()
     {
-        return Tarea::all();
+        $tareas = Tarea::all();
+        return view('tareas.index', compact('tareas'));
     }
 
     public function show($id)
     {
-        return Tarea::findOrFail($id);
+        $tarea = Tarea::findOrFail($id);
+        return view('tareas.show', compact('tarea'));
+    }
+
+    public function create()
+    {
+        return view('tareas.create');
     }
 
     public function store(Request $request)
@@ -26,26 +32,33 @@ class TareaController extends Controller
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date|after_or_equal:fecha_inicio'
         ]);
-        return Tarea::create($validated);
+        Tarea::create($validated);
+        return redirect()->route('tareas.index')->with('success', 'Tarea creada correctamente');
+    }
+
+    public function edit($id)
+    {
+        $tarea = Tarea::findOrFail($id);
+        return view('tareas.edit', compact('tarea'));
     }
 
     public function update(Request $request, $id)
     {
         $tarea = Tarea::findOrFail($id);
         $validated = $request->validate([
-            'id_trabajador' => 'sometimes|required|string|size:11',
-            'id_labor' => 'sometimes|required|string|max:20',
-            'id_produccion' => 'sometimes|required|string|max:20',
-            'fecha_inicio' => 'sometimes|required|date',
-            'fecha_fin' => 'sometimes|required|date|after_or_equal:fecha_inicio'
+            'id_trabajador' => 'required|string|size:11',
+            'id_labor' => 'required|string|max:20',
+            'id_produccion' => 'required|string|max:20',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio'
         ]);
         $tarea->update($validated);
-        return $tarea;
+        return redirect()->route('tareas.index')->with('success', 'Tarea actualizada correctamente');
     }
 
     public function destroy($id)
     {
         Tarea::findOrFail($id)->delete();
-        return response()->noContent();
+        return redirect()->route('tareas.index')->with('success', 'Tarea eliminada correctamente');
     }
 }

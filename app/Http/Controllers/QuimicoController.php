@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Quimico;
@@ -9,12 +8,19 @@ class QuimicoController extends Controller
 {
     public function index()
     {
-        return Quimico::all();
+        $quimicos = Quimico::all();
+        return view('quimicos.index', compact('quimicos'));
     }
 
     public function show($nombre)
     {
-        return Quimico::findOrFail($nombre);
+        $quimico = Quimico::findOrFail($nombre);
+        return view('quimicos.show', compact('quimico'));
+    }
+
+    public function create()
+    {
+        return view('quimicos.create');
     }
 
     public function store(Request $request)
@@ -27,26 +33,33 @@ class QuimicoController extends Controller
             'precio_unitario' => 'required|numeric|min:0.01',
             'dosis_maxima_ha' => 'required|numeric|min:0.01'
         ]);
-        return Quimico::create($validated);
+        Quimico::create($validated);
+        return redirect()->route('quimicos.index')->with('success', 'Químico creado correctamente');
+    }
+
+    public function edit($nombre)
+    {
+        $quimico = Quimico::findOrFail($nombre);
+        return view('quimicos.edit', compact('quimico'));
     }
 
     public function update(Request $request, $nombre)
     {
         $quimico = Quimico::findOrFail($nombre);
         $validated = $request->validate([
-            'tipo' => 'sometimes|required|string|max:30',
-            'unidad_medida' => 'sometimes|required|string|max:20',
-            'cantidad_disponible' => 'sometimes|required|numeric|min:0.01',
-            'precio_unitario' => 'sometimes|required|numeric|min:0.01',
-            'dosis_maxima_ha' => 'sometimes|required|numeric|min:0.01'
+            'tipo' => 'required|string|max:30',
+            'unidad_medida' => 'required|string|max:20',
+            'cantidad_disponible' => 'required|numeric|min:0.01',
+            'precio_unitario' => 'required|numeric|min:0.01',
+            'dosis_maxima_ha' => 'required|numeric|min:0.01'
         ]);
         $quimico->update($validated);
-        return $quimico;
+        return redirect()->route('quimicos.index')->with('success', 'Químico actualizado correctamente');
     }
 
     public function destroy($nombre)
     {
         Quimico::findOrFail($nombre)->delete();
-        return response()->noContent();
+        return redirect()->route('quimicos.index')->with('success', 'Químico eliminado correctamente');
     }
 }

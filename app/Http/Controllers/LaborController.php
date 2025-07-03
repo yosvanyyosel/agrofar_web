@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Labor;
@@ -9,12 +8,19 @@ class LaborController extends Controller
 {
     public function index()
     {
-        return Labor::all();
+        $labors = Labor::all();
+        return view('labors.index', compact('labors'));
     }
 
     public function show($id)
     {
-        return Labor::findOrFail($id);
+        $labor = Labor::findOrFail($id);
+        return view('labors.show', compact('labor'));
+    }
+
+    public function create()
+    {
+        return view('labors.create');
     }
 
     public function store(Request $request)
@@ -23,22 +29,29 @@ class LaborController extends Controller
             'id_labor' => 'required|string|max:20',
             'nombre' => 'required|string|max:100'
         ]);
-        return Labor::create($validated);
+        Labor::create($validated);
+        return redirect()->route('labors.index')->with('success', 'Labor creada correctamente');
+    }
+
+    public function edit($id)
+    {
+        $labor = Labor::findOrFail($id);
+        return view('labors.edit', compact('labor'));
     }
 
     public function update(Request $request, $id)
     {
         $labor = Labor::findOrFail($id);
         $validated = $request->validate([
-            'nombre' => 'sometimes|required|string|max:100'
+            'nombre' => 'required|string|max:100'
         ]);
         $labor->update($validated);
-        return $labor;
+        return redirect()->route('labors.index')->with('success', 'Labor actualizada correctamente');
     }
 
     public function destroy($id)
     {
         Labor::findOrFail($id)->delete();
-        return response()->noContent();
+        return redirect()->route('labors.index')->with('success', 'Labor eliminada correctamente');
     }
 }

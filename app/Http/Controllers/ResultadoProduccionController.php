@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\ResultadoProduccion;
@@ -9,12 +8,19 @@ class ResultadoProduccionController extends Controller
 {
     public function index()
     {
-        return ResultadoProduccion::all();
+        $resultados = ResultadoProduccion::all();
+        return view('resultados_produccion.index', compact('resultados'));
     }
 
     public function show($id)
     {
-        return ResultadoProduccion::findOrFail($id);
+        $resultado = ResultadoProduccion::findOrFail($id);
+        return view('resultados_produccion.show', compact('resultado'));
+    }
+
+    public function create()
+    {
+        return view('resultados_produccion.create');
     }
 
     public function store(Request $request)
@@ -26,25 +32,32 @@ class ResultadoProduccionController extends Controller
             'fecha_cosecha' => 'required|date',
             'destino' => 'required|string|max:100'
         ]);
-        return ResultadoProduccion::create($validated);
+        ResultadoProduccion::create($validated);
+        return redirect()->route('resultados-produccion.index')->with('success', 'Resultado registrado correctamente');
+    }
+
+    public function edit($id)
+    {
+        $resultado = ResultadoProduccion::findOrFail($id);
+        return view('resultados_produccion.edit', compact('resultado'));
     }
 
     public function update(Request $request, $id)
     {
         $resultado = ResultadoProduccion::findOrFail($id);
         $validated = $request->validate([
-            'cantidad_producida' => 'sometimes|required|numeric|min:0.01',
-            'unidad_medida' => 'sometimes|required|string|max:10',
-            'fecha_cosecha' => 'sometimes|required|date',
-            'destino' => 'sometimes|required|string|max:100'
+            'cantidad_producida' => 'required|numeric|min:0.01',
+            'unidad_medida' => 'required|string|max:10',
+            'fecha_cosecha' => 'required|date',
+            'destino' => 'required|string|max:100'
         ]);
         $resultado->update($validated);
-        return $resultado;
+        return redirect()->route('resultados-produccion.index')->with('success', 'Resultado actualizado correctamente');
     }
 
     public function destroy($id)
     {
         ResultadoProduccion::findOrFail($id)->delete();
-        return response()->noContent();
+        return redirect()->route('resultados-produccion.index')->with('success', 'Resultado eliminado correctamente');
     }
 }

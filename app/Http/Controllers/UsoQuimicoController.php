@@ -9,14 +9,21 @@ class UsoQuimicoController extends Controller
 {
     public function index()
     {
-        return UsoQuimico::all();
+        $usos = UsoQuimico::all();
+        return view('uso_quimicos.index', compact('usos'));
     }
 
     public function show($id_tarea, $nombre_quimico)
     {
-        return UsoQuimico::where('id_tarea', $id_tarea)
+        $uso = UsoQuimico::where('id_tarea', $id_tarea)
             ->where('nombre_quimico', $nombre_quimico)
             ->firstOrFail();
+        return view('uso_quimicos.show', compact('uso'));
+    }
+
+    public function create()
+    {
+        return view('uso_quimicos.create');
     }
 
     public function store(Request $request)
@@ -27,7 +34,16 @@ class UsoQuimicoController extends Controller
             'dosis_ha' => 'required|numeric|min:0.01',
             'area_aplicada_ha' => 'required|numeric|min:0.01'
         ]);
-        return UsoQuimico::create($validated);
+        UsoQuimico::create($validated);
+        return redirect()->route('uso-quimicos.index')->with('success', 'Uso de químico registrado correctamente');
+    }
+
+    public function edit($id_tarea, $nombre_quimico)
+    {
+        $uso = UsoQuimico::where('id_tarea', $id_tarea)
+            ->where('nombre_quimico', $nombre_quimico)
+            ->firstOrFail();
+        return view('uso_quimicos.edit', compact('uso'));
     }
 
     public function update(Request $request, $id_tarea, $nombre_quimico)
@@ -36,11 +52,11 @@ class UsoQuimicoController extends Controller
             ->where('nombre_quimico', $nombre_quimico)
             ->firstOrFail();
         $validated = $request->validate([
-            'dosis_ha' => 'sometimes|required|numeric|min:0.01',
-            'area_aplicada_ha' => 'sometimes|required|numeric|min:0.01'
+            'dosis_ha' => 'required|numeric|min:0.01',
+            'area_aplicada_ha' => 'required|numeric|min:0.01'
         ]);
         $uso->update($validated);
-        return $uso;
+        return redirect()->route('uso-quimicos.index')->with('success', 'Uso de químico actualizado correctamente');
     }
 
     public function destroy($id_tarea, $nombre_quimico)
@@ -48,6 +64,6 @@ class UsoQuimicoController extends Controller
         UsoQuimico::where('id_tarea', $id_tarea)
             ->where('nombre_quimico', $nombre_quimico)
             ->delete();
-        return response()->noContent();
+        return redirect()->route('uso-quimicos.index')->with('success', 'Uso de químico eliminado correctamente');
     }
 }

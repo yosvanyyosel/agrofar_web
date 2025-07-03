@@ -9,14 +9,21 @@ class VacacionesLicenciasController extends Controller
 {
     public function index()
     {
-        return VacacionLicencia::all();
+        $vacaciones = VacacionLicencia::all();
+        return view('vacaciones_licencias.index', compact('vacaciones'));
     }
 
     public function show($id_trabajador, $fecha_inicio)
     {
-        return VacacionLicencia::where('id_trabajador', $id_trabajador)
+        $vacacion = VacacionLicencia::where('id_trabajador', $id_trabajador)
             ->where('fecha_inicio', $fecha_inicio)
             ->firstOrFail();
+        return view('vacaciones_licencias.show', compact('vacacion'));
+    }
+
+    public function create()
+    {
+        return view('vacaciones_licencias.create');
     }
 
     public function store(Request $request)
@@ -28,7 +35,16 @@ class VacacionesLicenciasController extends Controller
             'tipo_ausencia' => 'required|string|max:20',
             'motivo' => 'nullable|string|max:50'
         ]);
-        return VacacionLicencia::create($validated);
+        VacacionLicencia::create($validated);
+        return redirect()->route('vacaciones-licencias.index')->with('success', 'Vacación/Licencia registrada correctamente');
+    }
+
+    public function edit($id_trabajador, $fecha_inicio)
+    {
+        $vacacion = VacacionLicencia::where('id_trabajador', $id_trabajador)
+            ->where('fecha_inicio', $fecha_inicio)
+            ->firstOrFail();
+        return view('vacaciones_licencias.edit', compact('vacacion'));
     }
 
     public function update(Request $request, $id_trabajador, $fecha_inicio)
@@ -37,12 +53,12 @@ class VacacionesLicenciasController extends Controller
             ->where('fecha_inicio', $fecha_inicio)
             ->firstOrFail();
         $validated = $request->validate([
-            'fecha_fin' => 'sometimes|required|date|after:fecha_inicio',
-            'tipo_ausencia' => 'sometimes|required|string|max:20',
+            'fecha_fin' => 'required|date|after:fecha_inicio',
+            'tipo_ausencia' => 'required|string|max:20',
             'motivo' => 'nullable|string|max:50'
         ]);
         $vacacion->update($validated);
-        return $vacacion;
+        return redirect()->route('vacaciones-licencias.index')->with('success', 'Vacación/Licencia actualizada correctamente');
     }
 
     public function destroy($id_trabajador, $fecha_inicio)
@@ -50,6 +66,6 @@ class VacacionesLicenciasController extends Controller
         VacacionLicencia::where('id_trabajador', $id_trabajador)
             ->where('fecha_inicio', $fecha_inicio)
             ->delete();
-        return response()->noContent();
+        return redirect()->route('vacaciones-licencias.index')->with('success', 'Vacación/Licencia eliminada correctamente');
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\MantenimientoMaquinaria;
@@ -9,14 +8,21 @@ class MantenimientoMaquinariaController extends Controller
 {
     public function index()
     {
-        return MantenimientoMaquinaria::all();
+        $mantenimientos = MantenimientoMaquinaria::all();
+        return view('mantenimiento_maquinarias.index', compact('mantenimientos'));
     }
 
     public function show($id_maquinaria, $inicio)
     {
-        return MantenimientoMaquinaria::where('id_maquinaria', $id_maquinaria)
+        $mantenimiento = MantenimientoMaquinaria::where('id_maquinaria', $id_maquinaria)
             ->where('inicio', $inicio)
             ->firstOrFail();
+        return view('mantenimiento_maquinarias.show', compact('mantenimiento'));
+    }
+
+    public function create()
+    {
+        return view('mantenimiento_maquinarias.create');
     }
 
     public function store(Request $request)
@@ -27,7 +33,16 @@ class MantenimientoMaquinariaController extends Controller
             'fin' => 'required|date|after:inicio',
             'costo' => 'required|integer|min:1'
         ]);
-        return MantenimientoMaquinaria::create($validated);
+        MantenimientoMaquinaria::create($validated);
+        return redirect()->route('mantenimiento-maquinarias.index')->with('success', 'Mantenimiento registrado correctamente');
+    }
+
+    public function edit($id_maquinaria, $inicio)
+    {
+        $mantenimiento = MantenimientoMaquinaria::where('id_maquinaria', $id_maquinaria)
+            ->where('inicio', $inicio)
+            ->firstOrFail();
+        return view('mantenimiento_maquinarias.edit', compact('mantenimiento'));
     }
 
     public function update(Request $request, $id_maquinaria, $inicio)
@@ -36,11 +51,11 @@ class MantenimientoMaquinariaController extends Controller
             ->where('inicio', $inicio)
             ->firstOrFail();
         $validated = $request->validate([
-            'fin' => 'sometimes|required|date|after:inicio',
-            'costo' => 'sometimes|required|integer|min:1'
+            'fin' => 'required|date|after:inicio',
+            'costo' => 'required|integer|min:1'
         ]);
         $mantenimiento->update($validated);
-        return $mantenimiento;
+        return redirect()->route('mantenimiento-maquinarias.index')->with('success', 'Mantenimiento actualizado correctamente');
     }
 
     public function destroy($id_maquinaria, $inicio)
@@ -48,6 +63,6 @@ class MantenimientoMaquinariaController extends Controller
         MantenimientoMaquinaria::where('id_maquinaria', $id_maquinaria)
             ->where('inicio', $inicio)
             ->delete();
-        return response()->noContent();
+        return redirect()->route('mantenimiento-maquinarias.index')->with('success', 'Mantenimiento eliminado correctamente');
     }
 }
