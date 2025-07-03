@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('uso_maquinarias', function (Blueprint $table) {
             $table->string('id_maquinaria', 20);
-            $table->integer('id_tarea');
+            $table->unsignedInteger('id_tarea'); // <-- CORREGIDO: unsigned
             $table->decimal('combustible_consumido', 10, 0);
             $table->primary(['id_maquinaria', 'id_tarea']);
             $table->foreign('id_maquinaria')->references('id_maquinaria')->on('maquinarias')->onUpdate('cascade');
             $table->foreign('id_tarea')->references('id_tarea')->on('tareas')->onUpdate('cascade');
             $table->timestamps();
         });
+        
     }
     
 

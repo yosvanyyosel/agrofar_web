@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('uso_quimicos', function (Blueprint $table) {
-            $table->integer('id_tarea');
+            $table->unsignedInteger('id_tarea');
             $table->string('nombre_quimico', 100);
             $table->decimal('dosis_ha', 10, 2);
             $table->decimal('area_aplicada_ha', 10, 2);
